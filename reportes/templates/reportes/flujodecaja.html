@@ -1,0 +1,38 @@
+{% extends 'reportes/base.html' %}
+{% load humanize %}
+
+{% block header %}
+Flujo de Caja
+{% endblock header %}
+
+{% block main %}
+<h2>Flujo de Caja Registrado🟰</h2>
+<table border="1" style="width: 50%; margin: auto; text-align: center; border-collapse: collapse; margin-top: 30px;">
+    <thead>
+        <tr>
+            <th>Fecha Inicio</th>
+            <th>Fecha Fin</th>
+            <th>Total Ingresos</th>
+            <th>Total Gastos</th>
+            <th>Balance</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for flujo in flujos %}
+        <tr>
+            <td>{{ flujo.fecha_inicio }}</td>
+            <td>{{ flujo.fecha_fin }}</td>
+            <td>${{ flujo.total_ingresos }}</td>
+            <td>${{ flujo.total_gastos }}</td>
+            <td>${{ flujo.balance }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5">No hay datos de flujo de caja registrados.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    
+</table>
+
+{% endblock main %}
