@@ -1,0 +1,62 @@
+{% extends 'reportes/base.html' %}
+{% load humanize custom_filters %}
+
+{% block header %}
+Ingresos
+{% endblock header %}
+
+{% block main %}
+
+<!-- Formulario para añadir un nuevo ingreso con más espacio -->
+<div style="text-align: center; margin-bottom: 30px; margin-top: 30px;">
+    <form method="post" style="display: inline-block; text-align: left; border: 1px solid #ccc; padding: 20px; border-radius: 10px;">
+        {% csrf_token %}
+        <div style="margin-bottom: 10px;">
+            <label for="id_fecha" style="display: inline-block; width: 100px;">Fecha:</label>
+            {{ form.fecha }}
+        </div>
+        <div style="margin-bottom: 10px;">
+            <label for="id_monto" style="display: inline-block; width: 100px;">Monto:</label>
+            {{ form.monto }}
+        </div>
+        <div style="margin-bottom: 10px;">
+            <label for="id_categoria" style="display: inline-block; width: 100px;">Categoría:</label>
+            {{ form.categoria }}
+        </div>
+        <div style="margin-bottom: 10px;">
+            <label for="id_descripcion" style="display: inline-block; width: 100px;">Descripción:</label>
+            {{ form.descripcion }}
+        </div>
+        <div style="text-align: center;">
+            <button type="submit">Añadir Ingreso ➕</button>
+        </div>
+    </form>
+</div>
+
+<!-- Tabla para mostrar la lista de ingresos registrados -->
+<h2>Lista de Ingresos Registrados</h2>
+<table border="1" style="width: 80%; margin: auto; text-align: center; border-collapse: collapse;">
+    <thead>
+        <tr>
+            <th>Fecha</th>
+            <th>Monto</th>
+            <th>Categoría</th>
+            <th>Descripción</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ingreso in ingresos %}
+        <tr>
+            <td>{{ ingreso.fecha }}</td>
+            <td>${{ ingreso.monto|intcomma|replace_spaces_with_dots }}</td> <!-- Usa el filtro personalizado -->
+            <td>{{ ingreso.categoria }}</td>
+            <td>{{ ingreso.descripcion|default_if_none:'' }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">No hay ingresos registrados.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock main %}
