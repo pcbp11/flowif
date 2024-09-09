@@ -1,4 +1,4 @@
-Proyecto Flowif - Gestión Financiera
+Proyecto Flowif - Gestión Financiera - Pía Barraza
 Este proyecto es una aplicación web de gestión financiera que permite registrar, visualizar y administrar los ingresos, gastos y el flujo de caja de una empresa o negocio. Fue desarrollado con Django y ofrece una interfaz sencilla para ingresar datos y visualizar reportes de manera organizada.
 
 Funcionalidades principales
