@@ -39,8 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'reportes',
     'django.contrib.humanize',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
 ]
 
 MIDDLEWARE = [
