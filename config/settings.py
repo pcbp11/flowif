@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'reportes',
     'django.contrib.humanize',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
 ]
 
 MIDDLEWARE = [
@@ -127,3 +129,10 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Redireccionar después de iniciar sesión
+LOGIN_REDIRECT_URL = '/'
+
+# Redireccionar después de cerrar sesión
+LOGOUT_REDIRECT_URL = '/'

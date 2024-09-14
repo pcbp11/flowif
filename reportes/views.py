@@ -1,18 +1,35 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 from .models import Ingresos, Gastos, FlujodeCaja
 from .forms import IngresosForm, GastosForm
 from django.db.models import Sum
 
 
+# Vista para el registro de usuarios
+def register_view(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)  # Loguear al usuario automáticamente después del registro
+            return redirect('index')  # Redirigir a la página principal después del registro
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/register.html', {'form': form})
+
+
+# Vista principal
+@login_required  # Requiere que el usuario esté logueado para ver la página principal
 def index(request):
     return render(request, 'reportes/index.html')
 
+
+@login_required
 def flujodecaja_view(request):
     ingresos = Ingresos.objects.all()
     gastos = Gastos.objects.all()
-
-    print(f"Cantidad de ingresos: {ingresos.count()}")
-    print(f"Cantidad de gastos: {gastos.count()}")
 
     if ingresos.exists() or gastos.exists():
         total_ingresos = ingresos.aggregate(Sum('monto'))['monto__sum'] or 0
@@ -25,7 +42,6 @@ def flujodecaja_view(request):
         fecha_inicio = fecha_inicio.fecha if fecha_inicio and fecha_inicio.fecha else "N/A"
         fecha_fin = fecha_fin.fecha if fecha_fin and fecha_fin.fecha else "N/A"
 
-        # Crear un flujo con formato y agregarlo a una lista
         flujo = {
             'fecha_inicio': fecha_inicio,
             'fecha_fin': fecha_fin,
@@ -34,10 +50,8 @@ def flujodecaja_view(request):
             'balance': f"{balance:,}".replace(",", "."),
         }
 
-        # Enviamos una lista con un solo flujo
         return render(request, 'reportes/flujodecaja.html', {'flujos': [flujo]})
     else:
-        print("No hay ingresos ni gastos registrados.")
         flujo = {
             'fecha_inicio': "N/A",
             'fecha_fin': "N/A",
@@ -48,8 +62,9 @@ def flujodecaja_view(request):
         return render(request, 'reportes/flujodecaja.html', {'flujos': [flujo]})
 
 
+@login_required
 def ingresos_view(request):
-    ingresos = Ingresos.objects.all()  # Recuperar todos los registros de Ingresos
+    ingresos = Ingresos.objects.all()
     if request.method == 'POST':
         form = IngresosForm(request.POST)
         if form.is_valid():
@@ -61,25 +76,25 @@ def ingresos_view(request):
     ingresos_con_formato = []
     for ingreso in ingresos:
         try:
-            monto_int = int(float(ingreso.monto))  # Convertir el monto a entero
-            monto_formateado = f"{monto_int:,}".replace(",", ".")  # Formatear el monto con puntos y signo de peso
+            monto_int = int(float(ingreso.monto))
+            monto_formateado = f"{monto_int:,}".replace(",", ".")
         except (ValueError, TypeError) as e:
             print(f"Error al formatear el monto: {e}")
-            monto_formateado = "Error"  # Manejar cualquier error en el formateo
+            monto_formateado = "Error"
 
         ingresos_con_formato.append({
             'fecha': ingreso.fecha,
             'monto': monto_formateado,
             'categoria': ingreso.categoria,
-            'descripcion': ingreso.descripcion if ingreso.descripcion else ""  # Evita mostrar None
+            'descripcion': ingreso.descripcion if ingreso.descripcion else ""
         })
 
     return render(request, 'reportes/ingresos.html', {'ingresos': ingresos_con_formato, 'form': form})
 
 
-
+@login_required
 def gastos_view(request):
-    gastos = Gastos.objects.all()  # Recuperar todos los registros de Gastos
+    gastos = Gastos.objects.all()
     if request.method == 'POST':
         form = GastosForm(request.POST)
         if form.is_valid():
@@ -88,12 +103,11 @@ def gastos_view(request):
     else:
         form = GastosForm()
 
-    # Crear una lista de gastos con los montos formateados
     gastos_con_formato = []
     for gasto in gastos:
         try:
-            monto_int = int(gasto.monto)  # Convertir el monto a entero
-            monto_formateado = f"{monto_int:,}".replace(",", ".")  # Formatear el monto con puntos
+            monto_int = int(gasto.monto)
+            monto_formateado = f"{monto_int:,}".replace(",", ".")
             gastos_con_formato.append({
                 'fecha': gasto.fecha,
                 'monto_formateado': monto_formateado,
