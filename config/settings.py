@@ -134,3 +134,5 @@ LOGIN_REDIRECT_URL = '/'
 
 # Redireccionar después de cerrar sesión
 LOGOUT_REDIRECT_URL = '/'
+
+LOGIN_URL = '/login/'

@@ -1,7 +1,9 @@
 from django.contrib import admin
 from django.urls import path
 from reportes import views
-from django.contrib.auth import views as auth_views
+from django.contrib.auth.views import LoginView, LogoutView
+
+app_name = 'reportes'
 
 urlpatterns = [
     path('admin/', admin.site.urls),  # Administración de Django
@@ -11,7 +13,5 @@ urlpatterns = [
     path('gastos/', views.gastos_view, name='gastos'),  # Página de Gastos
     
     # Login, Logout y Registro
-    path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),  # Página de login
-    path('logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),  # Página de logout
-    path('register/', views.register_view, name='register'),  # Página de registro de usuarios
+    path('login/', LoginView.as_view(template_name='reportes/login.html'), name='login'),
 ]

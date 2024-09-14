@@ -1,4 +1,34 @@
-<button><a href="{% url 'index' %}">🏡Home</a></button>
-<button><a href="{% url 'ingresos' %}">📈Ingresos</a></button>
-<button><a href="{% url 'gastos' %}">📉Gastos</a></button>
-<button><a href="{% url 'flujodecaja' %}">💰Flujo de Caja</a></button>
+<div
+  style="
+    margin-bottom: 2%;
+    display: flex;
+    justify-content: center;
+    gap: 1%;
+    background-color: lightblue;
+  "
+>
+
+<button>
+  <a href="{% url 'index' %}">🏡Home</a>
+</button>
+{% if user.is_authenticated %}
+    <button>
+        <a href="{% url 'ingresos' %}">📈Ingresos</a>
+    </button>
+    <button>
+         <a href="{% url 'gastos' %}">📉Gastos</a>
+    </button>
+    <button>
+        <a href="{% url 'flujodecaja' %}">💰Flujo de Caja</a>
+    </button>
+    <button>
+        <a href="#">{{ user.username }}</a>
+    </button>
+{% else %}
+    <button>
+        <a href="{% url 'login' %}">Login🌐</a>
+    </button>
+
+{% endif %}
+
+</div>
