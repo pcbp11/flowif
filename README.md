@@ -1,5 +1,6 @@
 Proyecto Flowif - Gestión Financiera
 Este proyecto es una aplicación web de gestión financiera que permite registrar, visualizar y administrar los ingresos, gastos y el flujo de caja de una empresa o negocio. Fue desarrollado con Django y ofrece una interfaz sencilla para ingresar datos y visualizar reportes de manera organizada.
+VIDEO PRESENTACION EN OBS: https://drive.google.com/file/d/1bZk22xPIM2t2se6Q7D1g2SVOnqiN3IBb/view?usp=sharing
 
 Funcionalidades principales
 1. Registro de Ingresos
