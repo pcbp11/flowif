@@ -7,11 +7,10 @@
     background-color: lightblue;
   "
 >
-
-<button>
-  <a href="{% url 'reportes:index' %}">🏡Home</a>
-</button>
-{% if user.is_authenticated %}
+    <button>
+        <a href="{% url 'reportes:index' %}">🏡Home</a>
+    </button>
+    {% if user.is_authenticated %}
         <button>
             <a href="{% url 'reportes:ingresos' %}">📈Ingresos</a>
         </button>
@@ -24,10 +23,44 @@
         <button>
             <a href="#">{{ user.username }}</a>
         </button>
+        <form method="post" action="{% url 'logout' %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" onclick="return confirm('¿Estás seguro de que quieres cerrar sesión?');">🚪Logout</button>
+        </form>
     {% else %}
         <button>
             <a href="{% url 'login' %}">Login🌐</a>
         </button>
     {% endif %}
-
 </div>
+
+{% if messages %}
+<div id="messages-container">
+    {% for message in messages %}
+        <div class="message {{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<style>
+    #messages-container {
+        margin-top: 10px;
+        text-align: center;
+    }
+    .message {
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 5px;
+    }
+    .success {
+        background-color: #d4edda;
+    }
+    .error {
+        background-color: #f8d7da;
+    }
+    .info {
+        background-color: #e2e3e5;
+    }
+</style>

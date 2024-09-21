@@ -4,7 +4,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.db.models import Sum
 from decimal import Decimal
-from .models import Ingresos, Gastos,FlujodeCaja
+from django.contrib import messages
+from .models import Ingresos, Gastos, FlujodeCaja
 from .forms import IngresosForm, GastosForm
 
 def register_view(request):

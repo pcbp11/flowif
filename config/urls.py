@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
-from reportes import views
 from django.contrib.auth.views import LoginView, LogoutView
+from reportes import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
