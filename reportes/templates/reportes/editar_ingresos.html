@@ -1,11 +1,81 @@
 {% extends 'reportes/base.html' %}
 
 {% block main %}
-<h2>Editar Ingreso</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Guardar cambios</button>
-</form>
-<a href="{% url 'reportes:ingresos' %}">Cancelar</a>
+<div class="edit-form-container">
+    <h2>Editar Ingreso</h2>
+    <form method="post" class="edit-form">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="{{ form.fecha.id_for_label }}">Fecha:</label>
+            {{ form.fecha }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.monto.id_for_label }}">Monto:</label>
+            {{ form.monto }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.categoria.id_for_label }}">Categoría:</label>
+            {{ form.categoria }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.descripcion.id_for_label }}">Descripción:</label>
+            {{ form.descripcion }}
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn-guardar">Guardar cambios</button>
+            <a href="{% url 'reportes:ingresos' %}" class="btn-cancelar">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+<style>
+    .edit-form-container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .edit-form {
+        display: flex;
+        flex-direction: column;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    .form-group input, .form-group select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    .form-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+    .btn-guardar, .btn-cancelar {
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        text-align: center;
+    }
+    .btn-guardar {
+        background-color: #4CAF50;
+        color: white;
+    }
+    .btn-cancelar {
+        background-color: #f44336;
+        color: white;
+    }
+</style>
 {% endblock %}
