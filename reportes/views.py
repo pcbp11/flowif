@@ -19,6 +19,9 @@ def register_view(request):
         form = UserCreationForm()
     return render(request, 'reportes/registro.html', {'form': form})
 
+def about(request):
+    return render(request, 'reportes/about.html')
+
 @login_required
 def index(request):
     return render(request, 'reportes/index.html')
@@ -171,3 +174,6 @@ def borrar_gastos(request, gasto_id):
         gasto.delete()
         return redirect('reportes:gastos')
     return render(request, 'reportes/borrar_gastos.html', {'gasto': gasto})
+
+
+

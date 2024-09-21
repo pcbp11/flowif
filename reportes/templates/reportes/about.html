@@ -1,0 +1,95 @@
+{% extends 'reportes/base.html' %}
+
+{% block main %}
+<div class="about-container">
+    <h1>Sobre Mí</h1>
+    <h2>Pía Barraza Pastén</h2>
+    <p class="job-title">Ingeniero Comercial | Entusiasta de las Finanzas Personales</p>
+    
+    <section class="about-section">
+        <h3>¿Quién soy?</h3>
+        <p>
+            Soy una apasionada desarrolladora web con un gran interés en las finanzas personales y en el trading. 
+            Mi objetivo es crear herramientas que ayuden a las personas a gestionar mejor sus finanzas 
+            y alcanzar sus metas económicas.
+        </p>
+    </section>
+
+    <section class="about-section">
+        <h3>Mis Habilidades</h3>
+        <ul>
+            <li>Google Sheets de Google Drive</li>
+            <li>Gestión de bases de datos</li>
+            <li>Análisis financiero</li>
+            <li>Trading</li>
+        </ul>
+    </section>
+
+    <section class="about-section">
+        <h3>Sobre Este Proyecto</h3>
+        <p>
+            Esta aplicación de gestión financiera es el resultado de mi pasión por la tecnología 
+            y las finanzas personales. Mi objetivo es proporcionar una herramienta intuitiva y 
+            eficaz para ayudar a los usuarios y empresas de menor tamaño a tomar el control de sus finanzas.
+        </p>
+        <section class="about-section">
+            <h3>Contacto</h3>
+            <p>
+                Si tienes alguna pregunta o sugerencia, no dudes en contactarme:
+            </p>
+            <a href="mailto:piabarraza@pond.cl" class="email-link">piabarraza@pond.cl</a>
+        </section>
+</div>
+
+<style>
+    .about-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1, h2, h3 {
+        color: #2c3e50;
+    }
+    h1 {
+        text-align: center;
+        font-size: 2.5em;
+        margin-bottom: 10px;
+    }
+    h2 {
+        text-align: center;
+        font-size: 1.8em;
+        margin-top: 0;
+        color: #3498db;
+    }
+    .job-title {
+        text-align: center;
+        color: #7f8c8d;
+        font-style: italic;
+        margin-bottom: 30px;
+    }
+    .about-section {
+        margin-bottom: 30px;
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .about-section h3 {
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+    }
+    ul {
+        padding-left: 20px;
+    }
+    li {
+        margin-bottom: 5px;
+    }
+</style>
+{% endblock %}

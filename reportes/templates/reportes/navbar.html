@@ -10,6 +10,9 @@
     <button>
         <a href="{% url 'reportes:index' %}">🏡Home</a>
     </button>
+    <button>
+        <a href="{% url 'reportes:about' %}">👤Sobre Mí</a>
+    </button>
     {% if user.is_authenticated %}
         <button>
             <a href="{% url 'reportes:ingresos' %}">📈Ingresos</a>
