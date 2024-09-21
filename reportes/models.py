@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Ingresos(models.Model):
+    id = models.AutoField(primary_key=True)
     fecha = models.DateField()
     monto = models.DecimalField(max_digits=10, decimal_places=0)
     categoria = models.CharField(max_length=100)
@@ -11,11 +12,11 @@ class Ingresos(models.Model):
         verbose_name = "Ingreso"
         verbose_name_plural = "Ingresos"
 
-
     def __str__(self):
         return f"{self.fecha} - {self.descripcion} - {self.monto}"
 
 class Gastos(models.Model):
+    id= models.AutoField(primary_key=True)
     fecha = models.DateField()
     monto = models.DecimalField(max_digits=10, decimal_places=0)
     categoria = models.CharField(max_length=100)

@@ -5,11 +5,20 @@
 {% endblock header %}
 
 {% block main %}
-    <form method="post">
+<div style="max-width: 400px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; background-color: #f9f9f9;">
+    <h2 style="text-align: center;">Iniciar Sesión</h2>
+    <form method="post" style="display: flex; flex-direction: column; gap: 10px;">
         {% csrf_token %}
-        <table>
-            {{form.as_table}}
-        </table>
-        <button type="submit">Iniciar Sesión</button>
+        <div>
+            <label>Nombre de usuario:</label>
+            {{ form.username }}
+        </div>
+        <div>
+            <label>Contraseña:</label>
+            {{ form.password }}
+        </div>
+        <button type="submit" style="padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 5px;">Iniciar Sesión</button>
     </form>
+    <p style="text-align: center;">¿No tienes cuenta? <a href="#">Regístrate aquí</a>.</p>
+</div>
 {% endblock main %}

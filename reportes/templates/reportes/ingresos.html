@@ -33,7 +33,7 @@ Ingresos
     </form>
 </div>
 
-<!-- Tabla para mostrar la lista de ingresos registrados -->
+<!-- Tabla para mostrar la lista de ingresos registrados con opciones de editar y borrar -->
 <h2>Lista de Ingresos Registrados</h2>
 <table border="1" style="width: 80%; margin: auto; text-align: center; border-collapse: collapse;">
     <thead>
@@ -42,21 +42,43 @@ Ingresos
             <th>Monto</th>
             <th>Categoría</th>
             <th>Descripción</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
         {% for ingreso in ingresos %}
         <tr>
             <td>{{ ingreso.fecha }}</td>
-            <td>${{ ingreso.monto|intcomma|replace_spaces_with_dots }}</td> <!-- Usa el filtro personalizado -->
+            <td>${{ ingreso.monto_formateado }}</td>
             <td>{{ ingreso.categoria }}</td>
             <td>{{ ingreso.descripcion|default_if_none:'' }}</td>
+            <td>
+                <a href="{% url 'reportes:editar_ingresos' ingreso.id %}" class="btn-editar">Editar</a>
+                <a href="{% url 'reportes:borrar_ingresos' ingreso.id %}" class="btn-borrar" onclick="return confirm('¿Estás seguro de que quieres borrar este ingreso?');">Borrar</a>
+            </td>
         </tr>
         {% empty %}
         <tr>
-            <td colspan="4">No hay ingresos registrados.</td>
+            <td colspan="5">No hay ingresos registrados.</td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+
+<style>
+    .btn-editar, .btn-borrar {
+        display: inline-block;
+        padding: 5px 10px;
+        margin: 2px;
+        text-decoration: none;
+        color: white;
+        border-radius: 3px;
+    }
+    .btn-editar {
+        background-color: #4CAF50;
+    }
+    .btn-borrar {
+        background-color: #f44336;
+    }
+</style>
 {% endblock main %}

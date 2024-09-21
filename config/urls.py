@@ -1,17 +1,19 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from reportes import views
 from django.contrib.auth.views import LoginView, LogoutView
 
-app_name = 'reportes'
-
 urlpatterns = [
-    path('admin/', admin.site.urls),  # Administración de Django
-    path('', views.index, name='index'),  # Página principal
-    path('flujodecaja/', views.flujodecaja_view, name='flujodecaja'),  # Página de Flujo de Caja
-    path('ingresos/', views.ingresos_view, name='ingresos'),  # Página de Ingresos
-    path('gastos/', views.gastos_view, name='gastos'),  # Página de Gastos
-    
-    # Login, Logout y Registro
+    path('admin/', admin.site.urls),
+    path('', include(([
+        path('', views.index, name='index'),
+        path('flujodecaja/', views.flujodecaja_view, name='flujodecaja'),
+        path('ingresos/', views.ingresos_view, name='ingresos'),
+        path('gastos/', views.gastos_view, name='gastos'),
+        path('ingresos/editar/<int:ingreso_id>/', views.editar_ingresos, name='editar_ingresos'),
+        path('ingresos/borrar/<int:ingreso_id>/', views.borrar_ingresos, name='borrar_ingresos'),
+    ], 'reportes'))),
     path('login/', LoginView.as_view(template_name='reportes/login.html'), name='login'),
+    path('logout/', LogoutView.as_view(next_page='login'), name='logout'),
+    path('registro/', views.register_view, name='registro'),
 ]

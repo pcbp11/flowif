@@ -1,0 +1,14 @@
+{% extends 'reportes/base.html' %}
+
+{% block main %}
+<h2>Confirmar borrado de ingreso</h2>
+<p>¿Estás seguro de que quieres borrar este ingreso?</p>
+<p>Fecha: {{ ingreso.fecha }}</p>
+<p>Monto: ${{ ingreso.monto|intcomma }}</p>
+<p>Categoría: {{ ingreso.categoria }}</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Sí, borrar</button>
+</form>
+<a href="{% url 'reportes:ingresos' %}">Cancelar</a>
+{% endblock %}
