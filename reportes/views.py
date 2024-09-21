@@ -150,3 +150,23 @@ def gastos_view(request):
         })
 
     return render(request, 'reportes/gastos.html', {'gastos': gastos_formateados, 'form': form})
+
+@login_required
+def editar_gastos(request, gasto_id):
+    gasto = get_object_or_404(Gastos, id=gasto_id)
+    if request.method == 'POST':
+        form = GastosForm(request.POST, instance=gasto)
+        if form.is_valid():
+            form.save()
+            return redirect('reportes:gastos')
+    else:
+        form = GastosForm(instance=gasto)
+    return render(request, 'reportes/editar_gastos.html', {'form': form, 'gasto': gasto})
+
+@login_required
+def borrar_gastos(request, gasto_id):
+    gasto = get_object_or_404(Gastos, id=gasto_id)
+    if request.method == 'POST':
+        gasto.delete()
+        return redirect('reportes:gastos')
+    return render(request, 'reportes/borrar_gastos.html', {'gasto': gasto})

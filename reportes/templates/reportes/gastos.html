@@ -1,5 +1,5 @@
 {% extends 'reportes/base.html' %}
-{% load humanize %}
+{% load humanize custom_filters %}
 
 {% block header %}
 Gastos
@@ -7,6 +7,7 @@ Gastos
 
 {% block main %}
 
+<!-- Formulario para añadir un nuevo gasto con más espacio -->
 <div style="text-align: center; margin-bottom: 30px; margin-top: 30px;">
     <form method="post" style="display: inline-block; text-align: left; border: 1px solid #ccc; padding: 20px; border-radius: 10px;">
         {% csrf_token %}
@@ -32,6 +33,7 @@ Gastos
     </form>
 </div>
 
+<!-- Tabla para mostrar la lista de gastos registrados con opciones de editar y borrar -->
 <h2>Lista de Gastos Registrados</h2>
 <table border="1" style="width: 80%; margin: auto; text-align: center; border-collapse: collapse;">
     <thead>
@@ -40,21 +42,43 @@ Gastos
             <th>Monto</th>
             <th>Categoría</th>
             <th>Descripción</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
         {% for gasto in gastos %}
         <tr>
             <td>{{ gasto.fecha }}</td>
-            <td>${{ gasto.monto_formateado }}</td> <!-- Utiliza el atributo formateado -->
+            <td>${{ gasto.monto_formateado }}</td>
             <td>{{ gasto.categoria }}</td>
             <td>{{ gasto.descripcion|default_if_none:'' }}</td>
+            <td>
+                <a href="{% url 'reportes:editar_gastos' gasto.id %}" class="btn-editar">Editar</a>
+                <a href="{% url 'reportes:borrar_gastos' gasto.id %}" class="btn-borrar" onclick="return confirm('¿Estás seguro de que quieres borrar este gasto?');">Borrar</a>
+            </td>
         </tr>
         {% empty %}
         <tr>
-            <td colspan="4">No hay gastos registrados.</td>
+            <td colspan="5">No hay gastos registrados.</td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+
+<style>
+    .btn-editar, .btn-borrar {
+        display: inline-block;
+        padding: 5px 10px;
+        margin: 2px;
+        text-decoration: none;
+        color: white;
+        border-radius: 3px;
+    }
+    .btn-editar {
+        background-color: #4CAF50;
+    }
+    .btn-borrar {
+        background-color: #f44336;
+    }
+</style>
 {% endblock main %}

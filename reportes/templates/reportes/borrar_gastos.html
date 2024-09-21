@@ -2,23 +2,23 @@
 
 {% block main %}
 <div class="delete-form-container">
-    <h2>Confirmar borrado de ingreso</h2>
-    <div class="ingreso-details">
-        <p><strong>Fecha:</strong> {{ ingreso.fecha }}</p>
-        <p><strong>Monto:</strong> ${{ ingreso.monto|floatformat:2|intcomma }}</p>
-        <p><strong>Categoría:</strong> {{ ingreso.categoria }}</p>
-        {% if ingreso.descripcion %}
-            <p><strong>Descripción:</strong> {{ ingreso.descripcion }}</p>
+    <h2>Confirmar borrado de gasto</h2>
+    <div class="gasto-details">
+        <p><strong>Fecha:</strong> {{ gasto.fecha }}</p>
+        <p><strong>Monto:</strong> ${{ gasto.monto|floatformat:2|intcomma }}</p>
+        <p><strong>Categoría:</strong> {{ gasto.categoria }}</p>
+        {% if gasto.descripcion %}
+            <p><strong>Descripción:</strong> {{ gasto.descripcion }}</p>
         {% endif %}
     </div>
-    <p class="warning">¿Estás seguro de que quieres borrar este ingreso?</p>
+    <p class="warning">¿Estás seguro de que quieres borrar este gasto?</p>
     <div class="form-actions">
         <form method="post">
             {% csrf_token %}
             <button type="submit" class="btn-borrar">Sí, borrar</button>
         </form>
-        <a href="{% url 'reportes:editar_ingresos' ingreso.id %}" class="btn-editar">Editar</a>
-        <a href="{% url 'reportes:ingresos' %}" class="btn-cancelar">Cancelar</a>
+        <a href="{% url 'reportes:editar_gastos' gasto.id %}" class="btn-editar">Editar</a>
+        <a href="{% url 'reportes:gastos' %}" class="btn-cancelar">Cancelar</a>
     </div>
 </div>
 
@@ -31,13 +31,13 @@
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    .ingreso-details {
+    .gasto-details {
         background-color: #fff;
         padding: 15px;
         border-radius: 4px;
         margin-bottom: 20px;
     }
-    .ingreso-details p {
+    .gasto-details p {
         margin: 5px 0;
     }
     .warning {
